@@ -1,0 +1,1245 @@
+#all the instances
+instance box models/box.obj
+instance sphere models/sphere.obj
+instance cylinder models/cylinder.obj
+instance cone models/cone.obj
+
+#all the textures
+texture whitebrick textures/whitebrick.ppm
+# texture roughpink textures/roughpink.ppm
+texture glasstextured textures/texturedglass.ppm
+texture stainedglass textures/stainedglass.ppm
+texture stainedglass2 textures/stainedglass2.ppm
+texture pattern1 textures/pattern1.ppm
+texture pattern2 textures/pattern2.ppm
+
+#material
+material mat-base 
+emission 0 0 0
+ambient 0.0588 0.2 0.0823
+diffuse 0.2 0.3 0.4
+specular 0 0 0
+shininess 1
+end-material
+
+material building-body-mat2
+emission 0 0 0
+ambient 0 0 0
+diffuse 0 0 0
+specular 0 0 0
+shininess 1
+ambient 1 0.7 0.8
+diffuse 0.7 0.4 0.5
+specular 0 0 0
+shininess 1
+end-material
+
+material building-body-mat
+emission 0 0 0
+ambient 1 1 1
+diffuse 0.7 0.5 0.5
+specular 0 0 0
+shininess 1
+end-material
+
+material turret-mat
+emission 0 0 0
+ambient 1 1 1
+diffuse 0.7 0.4 0.5
+specular 0 0 0
+shininess 1
+end-material
+
+material roof-mat
+emission 0 0 0
+ambient 0.5 0.8 0.7
+diffuse 0.1 0.1 0.1
+specular 0.5 0.5 0.5
+shininess 1
+end-material
+
+material sphere-mat
+emission 0 0 0
+ambient 0.6 0.9 0.7
+diffuse 0.4 0.4 0.4
+specular 0.1 0.1 0.1
+shininess 0.1
+end-material
+
+material big-roof-mat
+emission 0 0 0
+ambient 0.6 0.9 0.7
+diffuse 0.4 0.4 0.7
+specular 0.05 0.05 0.05
+shininess 1
+end-material
+
+material mat-ball 
+emission 0 0 0
+ambient 0.9 0.7 0.9
+diffuse 0.1 0.1 1
+specular 0.3 0.3 0.3
+shininess 5
+end-material
+
+group root root add-lights spotlight 0.1 0.1 0.1 0.4 0.4 0.4 0.8 0.8 0.8 0 100 0 70.07 0 -500 0 finish-lights
+
+leaf l1 l1 instanceof sphere add-lights nolights finish-lights
+assign-material l1 mat-ball
+assign-texture l1 stainedglass
+translate t1 t1 -75 170 -80 add-lights nolights finish-lights
+scale s1 s1 36 36 36 add-lights nolights finish-lights
+#add-child t1 root
+add-child s1 t1
+add-child l1 s1
+
+#scenegraph: root
+
+translate t2 t2 -300 300 300 add-lights light 0.5 0.5 0.5 0.4 0.4 0.2 0.1 0.4 0.2 10500 300 8000 finish-lights  
+add-child t2 root
+
+translate translate-scalebase translate-scalebase 10 -40 0 add-lights nolights finish-lights
+add-child translate-scalebase root
+
+scale scalebase scalebase 330 30 300 add-lights nolights finish-lights
+add-child scalebase translate-scalebase
+
+leaf base base instanceof box add-lights light 0.2 0.2 0.2 0.2 0.2 0.2 0.5 0.9 0.7 500 2000 0 finish-lights
+assign-material base mat-base
+add-child base scalebase
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base   
+
+translate translate-building-group translate-building-group 0 0 0 add-lights nolights finish-lights
+add-child translate-building-group root
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base       
+#   - translate-building-group
+
+group building-group building-group add-lights nolights finish-lights
+add-child building-group translate-building-group
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base       
+#   - translate-building-group
+#       - building-group
+
+scale scale-main-building scale-main-building 80 40 60 add-lights nolights finish-lights
+add-child scale-main-building building-group
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base        
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+
+leaf building-body building-body instanceof box add-lights nolights finish-lights
+assign-material building-body building-body-mat
+#assign-texture building-body pattern1
+add-child building-body scale-main-building
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+
+translate translate-turret1 translate-turret1 -40 -20 30 add-lights nolights finish-lights
+add-child translate-turret1 building-group
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base        
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+
+scale scale-turret1 scale-turret1 8 70 8 add-lights nolights finish-lights
+add-child scale-turret1 translate-turret1
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base       
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+
+leaf turret-body turret-body instanceof cylinder add-lights nolights finish-lights
+assign-material turret-body turret-mat
+assign-texture turret-body pattern2
+add-child turret-body scale-turret1
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base     
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+
+translate translate-turret2 translate-turret2 40 -20 30 add-lights nolights finish-lights
+add-child translate-turret2 building-group
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base       
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+
+scale scale-turret2 scale-turret2 8 70 8 add-lights nolights finish-lights
+add-child scale-turret2 translate-turret2
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+
+copy turret-body2 turret-body
+add-child turret-body2 scale-turret2
+assign-texture turret-body2 pattern2
+
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base     
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+
+translate translate-turret3 translate-turret3 -40 -20 -30 add-lights nolights finish-lights
+add-child translate-turret3 building-group
+
+scale scale-turret3 scale-turret3 8 70 8 add-lights nolights finish-lights
+add-child scale-turret3 translate-turret3
+
+copy turret-body3 turret-body 
+add-child turret-body3 scale-turret3
+assign-texture turret-body3 pattern2
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+
+translate translate-turret4 translate-turret4 40 -20 -30 add-lights nolights finish-lights
+add-child translate-turret4 building-group
+
+scale scale-turret4 scale-turret4 8 70 8 add-lights nolights finish-lights
+add-child scale-turret4 translate-turret4
+
+copy turret-body4 turret-body
+add-child turret-body4 scale-turret4
+assign-texture turret-body4 pattern2
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+
+translate translate-roof1 translate-roof1 -40 50 30 add-lights nolights finish-lights
+add-child translate-roof1 building-group
+
+scale scale-roof1 scale-roof1 8 20 8 add-lights nolights finish-lights
+add-child scale-roof1 translate-roof1
+
+leaf roof1 roof1 instanceof cone add-lights nolights finish-lights
+assign-material roof1 roof-mat
+add-child roof1 scale-roof1
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base       
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+
+translate translate-roof2 translate-roof2 40 50 30 add-lights nolights finish-lights
+add-child translate-roof2 building-group
+
+scale scale-roof2 scale-roof2 8 20 8 add-lights nolights finish-lights
+add-child scale-roof2 translate-roof2
+
+copy roof2 roof1
+add-child roof2 scale-roof2
+assign-texture roof1 stainedglass2
+assign-texture roof2 stainedglass2
+
+translate translate-roof3 translate-roof3 40 50 -30 add-lights nolights finish-lights
+add-child translate-roof3 building-group
+
+scale scale-roof3 scale-roof3 8 20 8 add-lights nolights finish-lights
+add-child scale-roof3 translate-roof3
+
+copy roof3 roof1
+add-child roof3 scale-roof3
+assign-texture roof3 stainedglass2
+
+translate translate-roof3 translate-roof3 40 50 -30 add-lights nolights finish-lights
+add-child translate-roof3 building-group
+
+scale scale-roof3 scale-roof3 8 20 8 add-lights nolights finish-lights
+add-child scale-roof3 translate-roof3
+
+copy roof3 roof1
+add-child roof3 scale-roof3
+
+translate translate-roof4 translate-roof4 -40 50 -30 add-lights nolights finish-lights
+add-child translate-roof4 building-group
+
+scale scale-roof4 scale-roof4 8 20 8 add-lights nolights finish-lights
+add-child scale-roof4 translate-roof4
+
+copy roof4 roof1
+add-child roof4 scale-roof4
+assign-texture roof4 stainedglass2
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+
+translate translate-building-layer-2 translate-building-layer-2 0 30 0 add-lights nolights finish-lights
+add-child translate-building-layer-2 building-group
+
+scale scale-building-layer-2 scale-building-layer-2 85 20 65 add-lights nolights finish-lights
+add-child scale-building-layer-2  translate-building-layer-2
+
+leaf building-layer-2 building-layer-2 instanceof box add-lights nolights finish-lights
+assign-material building-layer-2 building-body-mat
+#assign-texture building-layer-2 whitebrick
+add-child building-layer-2 scale-building-layer-2
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#               - building-layer-2
+
+translate translate-layer3 translate-layer3 0 30 0 add-lights nolights finish-lights
+add-child translate-layer3 building-group
+
+scale scale-layer3 scale-layer3 40 70 40 add-lights nolights finish-lights
+add-child scale-layer3 translate-layer3
+
+leaf building-layer-3 building-layer-3 instanceof box add-lights nolights finish-lights
+assign-material building-layer-3 building-body-mat
+#assign-texture building-layer-3 pattern1
+add-child building-layer-3 scale-layer3
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+
+translate translate-big-turret translate-big-turret 0 60 0 add-lights nolights finish-lights
+add-child translate-big-turret building-group
+
+scale scale-big-turret scale-big-turret 20 30 20 add-lights nolights finish-lights
+add-child scale-big-turret translate-big-turret
+
+leaf big-turret big-turret instanceof cylinder add-lights nolights finish-lights
+assign-material big-turret building-body-mat
+#assign-texture big-turret pattern1
+add-child big-turret scale-big-turret
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+
+translate translate-big-roof translate-big-roof  0 90 0 add-lights nolights finish-lights
+add-child translate-big-roof  building-group
+
+scale scale-big-roof  scale-big-roof  20 25 20 add-lights nolights finish-lights
+add-child scale-big-roof  translate-big-roof 
+
+leaf big-roof big-roof instanceof cone add-lights nolights finish-lights
+assign-material big-roof big-roof-mat
+#assign-texture big-roof pattern2
+add-child big-roof scale-big-roof 
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+#           - translate-big-roof
+#               - scale-big-roof
+#                   - big-roof
+
+translate translate-tiny-turret1 translate-tiny-turret1 20 40 -20 add-lights nolights finish-lights
+add-child translate-tiny-turret1  building-group
+
+scale scale-tiny-turret1 scale-tiny-turret1 5 50 5 add-lights nolights finish-lights
+add-child scale-tiny-turret1 translate-tiny-turret1 
+
+leaf tiny-turret1 tiny-turret1 instanceof cylinder add-lights nolights finish-lights
+assign-material tiny-turret1 turret-mat
+add-child tiny-turret1 scale-tiny-turret1
+
+assign-texture tiny-turret1 pattern2
+
+translate translate-tiny-turret2 translate-tiny-turret2 -20 40 -20 add-lights nolights finish-lights
+add-child translate-tiny-turret2  building-group
+
+scale scale-tiny-turret2 scale-tiny-turret2 5 50 5 add-lights nolights finish-lights
+add-child scale-tiny-turret2 translate-tiny-turret2
+
+copy tiny-turret2 tiny-turret1
+add-child tiny-turret2 scale-tiny-turret2
+assign-texture tiny-turret2 pattern2
+
+translate translate-tiny-turret3 translate-tiny-turret3 -20 40 20 add-lights nolights finish-lights
+add-child translate-tiny-turret3  building-group
+
+scale scale-tiny-turret3 scale-tiny-turret3 5 50 5 add-lights nolights finish-lights
+add-child scale-tiny-turret3 translate-tiny-turret3
+
+copy tiny-turret3 tiny-turret1
+add-child tiny-turret3 scale-tiny-turret3
+assign-texture tiny-turret3 pattern2
+
+translate translate-tiny-turret4 translate-tiny-turret4 20 40 20 add-lights nolights finish-lights
+add-child translate-tiny-turret4 building-group
+
+scale scale-tiny-turret4 scale-tiny-turret4 5 50 5 add-lights nolights finish-lights
+add-child scale-tiny-turret4 translate-tiny-turret4
+
+copy tiny-turret4 tiny-turret1
+add-child tiny-turret4 scale-tiny-turret4
+assign-texture tiny-turret4 pattern2
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+#           - translate-big-roof
+#               - scale-big-roof
+#                   - big-roof
+#           - translate-tiny-turret1
+#               - scale-tiny-turret1
+#                   - tiny-turret1
+#           - translate-tiny-turret2
+#               - scale-tiny-turret2
+#                   - tiny-turret2
+#           - translate-tiny-turret3
+#               - scale-tiny-turret3
+#                   - tiny-turret3
+#           - translate-tiny-turret4
+#               - scale-tiny-turret4
+#                   - tiny-turret4
+
+translate translate-tiny-sphere-1 translate-tiny-sphere-1 20 93 -20 add-lights nolights finish-lights
+add-child translate-tiny-sphere-1  building-group
+
+scale scale-tiny-sphere-1 scale-tiny-sphere-1 5 5 5 add-lights nolights finish-lights
+add-child scale-tiny-sphere-1 translate-tiny-sphere-1
+
+leaf tiny-sphere1 tiny-sphere1 instanceof sphere add-lights nolights finish-lights
+assign-material tiny-sphere1 sphere-mat
+assign-texture tiny-sphere1 stainedglass
+add-child tiny-sphere1 scale-tiny-sphere-1
+
+translate translate-tiny-sphere-2 translate-tiny-sphere-2 20 93 20 add-lights nolights finish-lights
+add-child translate-tiny-sphere-2  building-group
+
+scale scale-tiny-sphere-2 scale-tiny-sphere-2 5 5 5 add-lights nolights finish-lights
+add-child scale-tiny-sphere-2 translate-tiny-sphere-2
+
+copy tiny-sphere2 tiny-sphere1
+add-child tiny-sphere2 scale-tiny-sphere-2
+assign-texture tiny-sphere2 stainedglass
+
+translate translate-tiny-sphere-3 translate-tiny-sphere-3 -20 93 20 add-lights nolights finish-lights
+add-child translate-tiny-sphere-3  building-group
+
+scale scale-tiny-sphere-3 scale-tiny-sphere-3 5 5 5 add-lights nolights finish-lights
+add-child scale-tiny-sphere-3 translate-tiny-sphere-3
+
+copy tiny-sphere3 tiny-sphere1
+add-child tiny-sphere3 scale-tiny-sphere-3
+assign-texture tiny-sphere3 stainedglass
+
+translate translate-tiny-sphere-4 translate-tiny-sphere-4 -20 93 -20 add-lights nolights finish-lights
+add-child translate-tiny-sphere-4  building-group
+
+scale scale-tiny-sphere-4 scale-tiny-sphere-4 5 5 5 add-lights nolights finish-lights
+add-child scale-tiny-sphere-4 translate-tiny-sphere-4
+
+copy tiny-sphere4 tiny-sphere1
+add-child tiny-sphere4 scale-tiny-sphere-4
+assign-texture tiny-sphere4 stainedglass
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+#           - translate-big-roof
+#               - scale-big-roof
+#                   - big-roof
+#           - translate-tiny-turret1
+#               - scale-tiny-turret1
+#                   - tiny-turret1
+#           - translate-tiny-turret2
+#               - scale-tiny-turret2
+#                   - tiny-turret2
+#           - translate-tiny-turret3
+#               - scale-tiny-turret3
+#                   - tiny-turret3
+#           - translate-tiny-turret4
+#               - scale-tiny-turret4
+#                   - tiny-turret4
+#           - translate-tiny-sphere-1
+#               - scale-tiny-sphere-1
+#                   - tiny-sphere1
+#           - translate-tiny-sphere-2
+#               - scale-tiny-sphere-2
+#                   - tiny-sphere2
+#           - translate-tiny-sphere-3
+#               - scale-tiny-sphere-3
+#                   - tiny-sphere3
+#           - translate-tiny-sphere-4
+#               - scale-tiny-sphere-4
+#                   - tiny-sphere4
+
+group two-buildings two-buildings add-lights nolights finish-lights
+#add-child two-buildings root
+
+translate t-b1 t-b1 -135 80 -125 add-lights nolights finish-lights
+add-child t-b1 two-buildings
+
+group building-1 building-1 add-lights nolights finish-lights
+add-child building-1 t-b1
+
+rotate r-b1bottom r-b1bottom 90 1 0 0 add-lights nolights finish-lights
+add-child r-b1bottom building-1
+
+scale s-b1bottom s-b1bottom 1.2 1.2 1.2 add-lights nolights finish-lights
+add-child s-b1bottom r-b1bottom
+
+import building1-bottom scenegraphmodels/building1.txt
+add-child building1-bottom s-b1bottom
+
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+#           - translate-big-roof
+#               - scale-big-roof
+#                   - big-roof
+#           - translate-tiny-turret1
+#               - scale-tiny-turret1
+#                   - tiny-turret1
+#           - translate-tiny-turret2
+#               - scale-tiny-turret2
+#                   - tiny-turret2
+#           - translate-tiny-turret3
+#               - scale-tiny-turret3
+#                   - tiny-turret3
+#           - translate-tiny-turret4
+#               - scale-tiny-turret4
+#                   - tiny-turret4
+#           - translate-tiny-sphere-1
+#               - scale-tiny-sphere-1
+#                   - tiny-sphere1
+#           - translate-tiny-sphere-2
+#               - scale-tiny-sphere-2
+#                   - tiny-sphere2
+#           - translate-tiny-sphere-3
+#               - scale-tiny-sphere-3
+#                   - tiny-sphere3
+#           - translate-tiny-sphere-4
+#               - scale-tiny-sphere-4
+#                   - tiny-sphere4
+#   - two-humanoids
+#       - t-human-1
+#           - s-human-1
+#               - r-human-1
+#                   - human-1
+#       - t-human-2
+#           - s-human-2
+#               - r-human-2
+#                   - human-2
+#   - two-buildings
+#       - t-b1
+#           - building-1
+#               - r-b1bottom
+#                   - s-b1bottom
+#                       - building1-bottom
+
+translate t-b1top1 t-b1top1 25 90 20 add-lights nolights finish-lights
+add-child t-b1top1 building-1
+
+rotate r-b1top1 r-b1top1 90 1 0 0 add-lights nolights finish-lights
+add-child r-b1top1 t-b1top1
+
+scale s-b1top1 s-b1top1 0.7 0.7 1.0 add-lights nolights finish-lights
+add-child s-b1top1 r-b1top1
+
+import building1-top1 scenegraphmodels/building1.txt
+add-child building1-top1 s-b1top1
+
+translate t-b1top2 t-b1top2 5 50 10 add-lights nolights finish-lights
+add-child t-b1top2 building-1
+
+rotate r-b1top2 r-b1top2 90 1 0 0 add-lights nolights finish-lights
+add-child r-b1top2 t-b1top2
+
+scale s-b1top2 s-b1top2 0.4 1.0 0.5 add-lights nolights finish-lights
+add-child s-b1top2 r-b1top2
+
+import building1-top2 scenegraphmodels/building1.txt
+add-child building1-top2 s-b1top2
+
+translate t-b1top3 t-b1top3 75 50 10 add-lights nolights finish-lights
+add-child t-b1top3 building-1
+
+rotate r-b1top3 r-b1top3 90 1 0 0 add-lights nolights finish-lights
+add-child r-b1top3 t-b1top3
+
+scale s-b1top3 s-b1top3 0.4 1.0 0.5 add-lights nolights finish-lights
+add-child s-b1top3 r-b1top3
+
+import building1-top3 scenegraphmodels/building1.txt
+add-child building1-top3 s-b1top3
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+#           - translate-big-roof
+#               - scale-big-roof
+#                   - big-roof
+#           - translate-tiny-turret1
+#               - scale-tiny-turret1
+#                   - tiny-turret1
+#           - translate-tiny-turret2
+#               - scale-tiny-turret2
+#                   - tiny-turret2
+#           - translate-tiny-turret3
+#               - scale-tiny-turret3
+#                   - tiny-turret3
+#           - translate-tiny-turret4
+#               - scale-tiny-turret4
+#                   - tiny-turret4
+#           - translate-tiny-sphere-1
+#               - scale-tiny-sphere-1
+#                   - tiny-sphere1
+#           - translate-tiny-sphere-2
+#               - scale-tiny-sphere-2
+#                   - tiny-sphere2
+#           - translate-tiny-sphere-3
+#               - scale-tiny-sphere-3
+#                   - tiny-sphere3
+#           - translate-tiny-sphere-4
+#               - scale-tiny-sphere-4
+#                   - tiny-sphere4
+#   - two-humanoids
+#       - t-human-1
+#           - s-human-1
+#               - r-human-1
+#                   - human-1
+#       - t-human-2
+#           - s-human-2
+#               - r-human-2
+#                   - human-2
+#   - two-buildings
+#       - t-b1
+#           - building-1
+#               - r-b1bottom
+#                   - s-b1bottom
+#                       - building1-bottom
+#               - t-b1top1
+#                   - r-b1top1
+#                       - s-b1top1
+#                           - building1-top1
+#               - t-b1top2
+#                   - r-b1top2
+#                       - s-b1top2
+#                           - building1-top2
+#               - t-b1top3
+#                   - r-b1top3
+#                       - s-b1top3
+#                           - building1-top3
+
+translate t-b2 t-b2 45 80 -105 add-lights nolights finish-lights
+add-child t-b2 two-buildings
+
+group building-2 building-2 add-lights nolights finish-lights
+add-child building-2 t-b2
+
+rotate r-b2 r-b2 90 1 0 0 add-lights nolights finish-lights
+add-child r-b2 building-2
+
+scale s-b2 s-b2 1.2 1.2 1.2 add-lights nolights finish-lights
+add-child s-b2 r-b2
+
+import building2 scenegraphmodels/building2.txt
+add-child building2 s-b2
+
+translate tl2 tl2 300 70 300 add-lights nolights finish-lights
+add-child tl2 root
+
+#scenegraph: 
+# root 
+#   - translate-scalebase
+#       - scalebase
+#        - base      
+#   - translate-building-group
+#       - building-group
+#           - scale-main-building
+#               - building-body
+#           - translate-turret1
+#               - scale-turret1
+#                   - turret-body
+#           - translate-turret2
+#               - scale-turret2
+#                   - turret-body2
+#           - translate-turret3
+#               - scale-turret3
+#                   - turret-body3
+#           - translate-turret4
+#               - scale-turret4
+#                   - turret-body4
+#           - translate-roof1
+#               - scale-roof1
+#                   - roof1
+#           - translate-roof2
+#               - scale-roof2
+#                   - roof2
+#           - translate-roof3
+#               - scale-roof3
+#                   - roof3
+#           - translate-roof4
+#               - scale-roof4
+#                   - roof4
+#           - translate-building-layer-2
+#               - scale-building-layer-2
+#                   - building-layer-2
+#           - translate-layer3
+#               - scale-layer3
+#                   - building-layer-2
+#           - translate-big-turret
+#               - scale-big-turret
+#                   - big-turret
+#           - translate-big-roof
+#               - scale-big-roof
+#                   - big-roof
+#           - translate-tiny-turret1
+#               - scale-tiny-turret1
+#                   - tiny-turret1
+#           - translate-tiny-turret2
+#               - scale-tiny-turret2
+#                   - tiny-turret2
+#           - translate-tiny-turret3
+#               - scale-tiny-turret3
+#                   - tiny-turret3
+#           - translate-tiny-turret4
+#               - scale-tiny-turret4
+#                   - tiny-turret4
+#           - translate-tiny-sphere-1
+#               - scale-tiny-sphere-1
+#                   - tiny-sphere1
+#           - translate-tiny-sphere-2
+#               - scale-tiny-sphere-2
+#                   - tiny-sphere2
+#           - translate-tiny-sphere-3
+#               - scale-tiny-sphere-3
+#                   - tiny-sphere3
+#           - translate-tiny-sphere-4
+#               - scale-tiny-sphere-4
+#                   - tiny-sphere4
+#   - two-humanoids
+#       - t-human-1
+#           - s-human-1
+#               - r-human-1
+#                   - human-1
+#       - t-human-2
+#           - s-human-2
+#               - r-human-2
+#                   - human-2
+#   - two-buildings
+#       - t-b1
+#           - building-1
+#               - r-b1bottom
+#                   - s-b1bottom
+#                       - building1-bottom
+#               - t-b1top1
+#                   - r-b1top1
+#                       - s-b1top1
+#                           - building1-top1
+#               - t-b1top2
+#                   - r-b1top2
+#                       - s-b1top2
+#                           - building1-top2
+#               - t-b1top3
+#                   - r-b1top3
+#                       - s-b1top3
+#                           - building1-top3
+#       - t-b2
+#           - building-2
+#               - r-b2
+#                   - 2-b3
+#                       - building2
+
+group two-humanoids two-humanoids add-lights nolights finish-lights
+#add-child two-humanoids root
+
+#one human, 80 inches tall
+
+translate t-human-1 t-human-1 -105 -40 125 add-lights nolights finish-lights
+add-child t-human-1 two-humanoids
+
+rotate r-human-1 r-human-1 -90 0 1 0 add-lights nolights finish-lights
+add-child r-human-1 t-human-1
+
+scale s-human-1 s-human-1 50 50 50 add-lights nolights finish-lights
+add-child s-human-1 r-human-1 
+
+import human-1 scenegraphmodels/human-running.txt
+add-child human-1 s-human-1
+
+translate t-human-2 t-human-2 -15 -45 142 add-lights nolights finish-lights
+add-child t-human-2 two-humanoids
+
+rotate r-human-2 r-human-2 180 0 1 0 add-lights nolights finish-lights
+add-child r-human-2 t-human-2
+
+scale s-human-2 s-human-1 50 50 50 add-lights nolights finish-lights
+add-child s-human-2 r-human-2
+
+import human-2 scenegraphmodels/human-sitting.txt
+add-child human-2 s-human-2
+
+assign-root root

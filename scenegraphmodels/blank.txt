@@ -1,0 +1,4 @@
+#the root
+group node-1-0 root add-lights light 1.0 0.0 0.0 0.0 0.0 100.0 finish-lights
+assign-root node-1-0
+

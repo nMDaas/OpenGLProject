@@ -1,0 +1,32 @@
+#all the instances
+instance box models/box.obj
+instance circ models/sphere.obj
+
+#material
+material mat-node-3-0
+emission 0 0 0
+ambient 1 0 0
+diffuse 1 0 0
+specular 1 0 0
+shininess 0
+end-material
+
+#the root
+group root root add-lights nolights finish-lights
+
+scale scale-z scale-node 1 1 50 add-lights nolights finish-lights
+scale scale-y scale-node 1 50 1 add-lights nolights finish-lights
+scale scale-x scale-node 50 1 1 add-lights light 1 0 0 0 0 -100 finish-lights
+
+leaf leaf-node one-box instanceof circ add-lights nolights finish-lights
+
+# this works
+add-child scale-z root
+add-child scale-y scale-z
+add-child scale-x scale-y
+add-child leaf-node scale-x
+
+assign-material leaf-node mat-node-3-0
+
+assign-root root
+

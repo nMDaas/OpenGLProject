@@ -1,0 +1,37 @@
+#all the instances
+instance box models/box.obj
+instance circ models/sphere.obj
+
+#material
+material mat-base 
+emission 0 0 0
+ambient 0.3 0.3 0.3
+diffuse 0.6 0.6 0.6
+specular 0.5 0.5 0.5
+shininess 5
+end-material
+
+
+group root1 root1 add-lights nolights finish-lights
+
+# Addign the sphere
+translate t1 t1 50 0 0 add-lights nolights finish-lights
+scale s1 s1 60 60 60 add-lights nolights finish-lights
+leaf l1 l1 instanceof circ add-lights nolights finish-lights
+add-child t1 root1
+add-child s1 t1
+add-child l1 s1
+assign-material l1 mat-base
+
+# Adding a normal light
+translate t2 t2 -100 100 100 add-lights light 0.3 0.2 0.2 0.5 0.5 0.5 0.7 0.7 0.7 0 0 0 -1 finish-lights
+add-child t2 root1
+
+# Adding a spot light
+translate t3 t3 100 0 100 add-lights light 0.3 0.0 0.0 0.7 0.0 0.0 0.7 0.0 0.0 0 0 0 0.96 finish-lights
+add-child t3 root1
+
+# Assign Root
+assign-root root1
+
+# light 1 0 0 150 -30 0

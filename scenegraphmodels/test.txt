@@ -1,0 +1,22 @@
+instance sphere models/sphere.obj
+instance box models/box.obj
+
+material mat-ball 
+emission 0 0 0
+ambient 0.3 0.3 0.3
+diffuse 0.6 0.6 0.6
+specular 0.5 0.5 0.5
+shininess 5
+end-material
+
+group root root add-lights spotlight 0.1 0.1 0.1 0.8 0.0 0.0 0.8 0.0 0.0 100 100 100 0.95 finish-lights
+
+leaf l1 l1 instanceof sphere add-lights nolights finish-lights
+assign-material l1 mat-ball
+translate t1 t1 0 0 0 add-lights nolights finish-lights
+scale s1 s1 60 60 60 add-lights nolights finish-lights
+add-child t1 root
+add-child s1 t1
+add-child l1 s1
+
+assign-root root

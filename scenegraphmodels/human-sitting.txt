@@ -1,0 +1,405 @@
+instance cylinder models/cylinder.obj
+instance sphere models/sphere.obj
+instance box models/box.obj
+
+material shin-material
+emission 0 0 0
+ambient 0 1 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material knee-material
+emission 0 0 0
+ambient 1 0 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material pelvis-material
+emission 0 0 0
+ambient 0 1 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material thigh-material
+emission 0 0 0
+ambient 1 1 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material torso-material 
+emission 0 0 0
+ambient 0 1 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material shoulder-material
+emission 0 0 0
+ambient 0 1 1
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material elbow-material
+emission 0 0 0
+ambient 0 1 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material arm-material
+emission 0 0 0
+ambient 1 0.5 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material neck-material
+emission 0 0 0
+ambient 1 0 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+material head-material
+emission 0 0 0
+ambient 1 1 0
+diffuse 0.1 0.1 0.1
+specular 0 0 0
+shininess 0.1
+end-material
+
+scale s-human s-human 0.0138 0.0138 0.013 add-lights nolights finish-lights
+assign-root s-human
+
+group human human add-lights nolights finish-lights
+add-child human s-human
+
+translate t-lowerbody-to-human t-lowerbody-to-human 0 42 0 add-lights nolights finish-lights
+add-child t-lowerbody-to-human human
+
+group lowerbody lowerbody add-lights nolights finish-lights
+add-child lowerbody t-lowerbody-to-human
+
+rotate r-left-leg r-left-leg 145 1 0 0 add-lights nolights finish-lights
+add-child r-left-leg lowerbody
+
+translate t-left-leg t-left-leg -5 0 0 add-lights nolights finish-lights
+add-child t-left-leg r-left-leg
+
+group g-leftleg g-leftleg add-lights nolights finish-lights
+add-child g-leftleg t-left-leg
+
+group g-lthigh g-lthigh add-lights nolights finish-lights
+add-child g-lthigh g-leftleg
+
+translate lknee-to-lthigh lknee-to-lthigh 0 -22 0 add-lights nolights finish-lights
+add-child lknee-to-lthigh g-lthigh
+
+group g-lknee g-lknee add-lights nolights finish-lights
+add-child g-lknee lknee-to-lthigh
+
+rotate r-lshin r-lshin -120 1 0 0 add-lights nolights finish-lights
+add-child r-lshin g-lknee
+
+group g-lshin g-lshin add-lights nolights finish-lights
+add-child g-lshin r-lshin
+
+translate t-lshin t-lshin 0 -20 0 add-lights nolights finish-lights
+add-child t-lshin g-lshin
+
+scale s-lshin s-lshin 1 20 1 add-lights nolights finish-lights
+add-child s-lshin t-lshin
+
+leaf lshin lshin instanceof cylinder add-lights nolights finish-lights
+add-child lshin s-lshin 
+assign-material lshin shin-material 
+
+scale s-lknee s-lknee 2 2 2 add-lights nolights finish-lights
+add-child s-lknee g-lknee
+
+leaf lknee lknee instanceof sphere add-lights nolights finish-lights
+add-child lknee s-lknee
+assign-material lknee knee-material
+
+translate t-lthigh t-lthigh 0 -20 0 add-lights nolights finish-lights
+add-child t-lthigh g-lthigh
+
+scale s-lthigh s-lthigh 1 20 1 add-lights nolights finish-lights
+add-child s-lthigh t-lthigh
+
+leaf lthigh lthigh instanceof cylinder add-lights nolights finish-lights
+add-child lthigh s-lthigh 
+assign-material lthigh thigh-material 
+
+rotate r-right-leg r-right-leg 90 1 0 0 add-lights nolights finish-lights
+add-child r-right-leg lowerbody
+
+translate t-right-leg t-right-leg 5 0 0 add-lights nolights finish-lights
+add-child t-right-leg r-right-leg
+
+group g-rightleg g-rightleg add-lights nolights finish-lights
+add-child g-rightleg t-right-leg
+
+group g-rthigh g-rthigh add-lights nolights finish-lights
+add-child g-rthigh g-rightleg
+
+translate rknee-to-rthigh rknee-to-rthigh 0 -22 0 add-lights nolights finish-lights
+add-child rknee-to-rthigh g-rthigh
+
+group g-rknee g-rknee add-lights nolights finish-lights
+add-child g-rknee rknee-to-rthigh
+
+rotate r-rshin r-rshin -90 1 0 0 add-lights nolights finish-lights
+add-child r-rshin g-rknee
+
+group g-rshin g-rshin add-lights nolights finish-lights
+add-child g-rshin r-rshin
+
+translate t-rshin t-rshin 0 -20 0 add-lights nolights finish-lights
+add-child t-rshin g-rshin
+
+scale s-rshin s-rshin 1 20 1 add-lights nolights finish-lights
+add-child s-rshin t-rshin
+
+leaf rshin rshin instanceof cylinder add-lights nolights finish-lights
+add-child rshin s-rshin 
+assign-material rshin shin-material 
+
+scale s-rknee s-rknee 2 2 2 add-lights nolights finish-lights
+add-child s-rknee g-rknee
+
+leaf rknee rknee instanceof sphere add-lights nolights finish-lights
+add-child rknee s-rknee
+assign-material rknee knee-material
+
+translate t-rthigh t-rthigh 0 -20 0 add-lights nolights finish-lights
+add-child t-rthigh g-rthigh
+
+rotate r-rthigh r-rthigh 140 1 0 0 add-lights nolights finish-lights
+add-child r-rthigh g-rthigh
+
+scale s-rthigh s-rthigh 1 20 1 add-lights nolights finish-lights
+add-child s-rthigh r-rthigh
+
+leaf rthigh rthigh instanceof cylinder add-lights nolights finish-lights
+add-child rthigh s-rthigh 
+assign-material rthigh thigh-material 
+
+group g-pelvis g-pelvis add-lights nolights finish-lights
+add-child g-pelvis lowerbody
+
+translate t-pelvis t-pelvis -5 0 0 add-lights nolights finish-lights
+add-child t-pelvis g-pelvis
+
+rotate r-pelvis r-pelvis -90 0 0 1 add-lights nolights finish-lights
+add-child r-pelvis t-pelvis
+
+scale s-pelvis s-pelvis 1 10 1 add-lights nolights finish-lights
+add-child s-pelvis r-pelvis
+
+leaf pelvis pelvis instanceof cylinder add-lights nolights finish-lights
+add-child pelvis s-pelvis
+assign-material pelvis pelvis-material
+
+translate t-midbody-to-human t-midbody-to-human 0 60 0 add-lights nolights finish-lights
+add-child t-midbody-to-human human 
+
+group midbody midbody add-lights nolights finish-lights
+add-child midbody t-midbody-to-human
+
+group g-shoulder g-shoulder add-lights nolights finish-lights
+add-child g-shoulder midbody
+
+group g-torso g-torso add-lights nolights finish-lights
+add-child g-torso midbody
+
+translate t-torso t-torso 0 -20 0 add-lights nolights finish-lights
+add-child t-torso g-torso
+
+scale s-torso s-torso 2 20 2 add-lights nolights finish-lights
+add-child s-torso t-torso
+
+leaf torso torso instanceof cylinder add-lights nolights finish-lights
+add-child torso s-torso
+assign-material torso torso-material
+
+translate t-shoulder t-shoulder -8 0 0 add-lights nolights finish-lights
+add-child t-shoulder g-shoulder
+
+rotate r-shoulder r-shoulder -90 0 0 1 add-lights nolights finish-lights
+add-child r-shoulder t-shoulder
+
+scale s-shoulder s-shoulder 1 16 1 add-lights nolights finish-lights
+add-child s-shoulder r-shoulder 
+
+leaf shoulder shoulder instanceof cylinder add-lights nolights finish-lights
+add-child shoulder s-shoulder
+assign-material shoulder shoulder-material
+
+rotate r-left-arm r-left-arm -25 1 0 0 add-lights nolights finish-lights
+add-child r-left-arm g-shoulder
+
+translate t-leftarm-to-shoulder t-leftarm-to-shoulder -8 0 0 add-lights nolights finish-lights
+add-child t-leftarm-to-shoulder r-left-arm
+
+group g-leftarm g-leftarm add-lights nolights finish-lights
+add-child g-leftarm t-leftarm-to-shoulder
+
+group g-lshoulderjoint g-lshoulderjoint add-lights nolights finish-lights
+add-child g-lshoulderjoint g-leftarm
+
+group g-lupperarm g-lupperarm add-lights nolights finish-lights
+add-child g-lupperarm g-lshoulderjoint
+
+translate lelbow-to-lupperarm lelbow-to-lupperarm 0 -12 0 add-lights nolights finish-lights
+add-child lelbow-to-lupperarm g-lupperarm
+
+group g-lelbow g-lelbow add-lights nolights finish-lights
+add-child g-lelbow lelbow-to-lupperarm
+
+group g-llowerarm g-llowerarm  add-lights nolights finish-lights
+add-child g-llowerarm g-lelbow
+
+translate t-llowerarm t-llowerarm 0 -10 0 add-lights nolights finish-lights
+add-child t-llowerarm g-llowerarm
+
+rotate r-llowerarm r-llowerarm 30 1 0 0 add-lights nolights finish-lights
+add-child r-llowerarm t-llowerarm
+
+scale s-llowerarm s-llowerarm 1 10 1 add-lights nolights finish-lights
+add-child s-llowerarm r-llowerarm
+
+leaf llowerarm llowerarm instanceof cylinder add-lights nolights finish-lights
+add-child llowerarm s-llowerarm 
+assign-material llowerarm arm-material
+
+scale s-lelbow s-lelbow 2 2 2 add-lights nolights finish-lights
+add-child s-lelbow g-lelbow
+
+leaf lelbow lelbow instanceof sphere add-lights nolights finish-lights
+add-child lelbow s-lelbow
+assign-material lelbow elbow-material
+
+translate t-lupperarm t-lupperarm 0 -10 0 add-lights nolights finish-lights
+add-child t-lupperarm g-lupperarm
+
+scale s-lupperarm s-lupperarm 1 10 1 add-lights nolights finish-lights
+add-child s-lupperarm t-lupperarm
+
+leaf lupperarm lupperarm instanceof cylinder add-lights nolights finish-lights
+add-child lupperarm s-lupperarm 
+assign-material lupperarm arm-material 
+
+scale s-lshoulderjoint s-lshoulderjoint 2 2 2 add-lights nolights finish-lights
+add-child s-lshoulderjoint g-lshoulderjoint
+
+leaf lshoulderjoint lshoulderjoint instanceof sphere add-lights nolights finish-lights
+add-child lshoulderjoint s-lshoulderjoint
+assign-material lshoulderjoint shoulder-material
+
+rotate r-right-arm r-right-arm -25 1 0 0 add-lights nolights finish-lights
+add-child r-right-arm g-shoulder
+
+translate t-rightarm-to-shoulder t-rightarm-to-shoulder 8 0 0 add-lights nolights finish-lights
+add-child t-rightarm-to-shoulder r-right-arm
+
+group g-rightarm g-rightarm add-lights nolights finish-lights
+add-child g-rightarm t-rightarm-to-shoulder
+
+group g-rshoulderjoint g-rshoulderjoint add-lights nolights finish-lights
+add-child g-rshoulderjoint g-rightarm
+
+group g-rupperarm g-rupperarm add-lights nolights finish-lights
+add-child g-rupperarm g-rshoulderjoint
+
+translate relbow-to-rupperarm relbow-to-rupperarm 0 -12 0 add-lights nolights finish-lights
+add-child relbow-to-rupperarm g-rupperarm
+
+group g-relbow g-relbow add-lights nolights finish-lights
+add-child g-relbow relbow-to-rupperarm 
+
+group g-rlowerarm g-rlowerarm  add-lights nolights finish-lights
+add-child g-rlowerarm g-relbow
+
+translate t-rlowerarm t-rlowerarm 0 -10 0 add-lights nolights finish-lights
+add-child t-rlowerarm g-rlowerarm
+
+scale s-rlowerarm s-rlowerarm 1 10 1 add-lights nolights finish-lights
+add-child s-rlowerarm t-rlowerarm
+
+leaf rlowerarm rlowerarm instanceof cylinder add-lights nolights finish-lights
+add-child rlowerarm s-rlowerarm 
+assign-material rlowerarm arm-material
+
+scale s-relbow s-relbow 2 2 2 add-lights nolights finish-lights
+add-child s-relbow g-relbow
+
+leaf relbow relbow instanceof sphere add-lights nolights finish-lights
+add-child relbow s-relbow
+assign-material relbow elbow-material
+
+translate t-rupperarm t-rupperarm 0 -10 0 add-lights nolights finish-lights
+add-child t-rupperarm g-rupperarm
+
+scale s-rupperarm s-rupperarm 1 10 1 add-lights nolights finish-lights
+add-child s-rupperarm t-rupperarm
+
+leaf rupperarm rupperarm instanceof cylinder add-lights nolights finish-lights
+add-child rupperarm s-rupperarm 
+assign-material rupperarm arm-material 
+
+scale s-rshoulderjoint s-rshoulderjoint 2 2 2 add-lights nolights finish-lights
+add-child s-rshoulderjoint g-rshoulderjoint
+
+leaf rshoulderjoint rshoulderjoint instanceof sphere add-lights nolights finish-lights
+add-child rshoulderjoint s-rshoulderjoint
+assign-material rshoulderjoint shoulder-material
+
+translate t-upperbody-to-human t-upperbody-to-human 0 68 0 add-lights nolights finish-lights
+add-child t-upperbody-to-human human 
+
+group upperbody upperbody add-lights nolights finish-lights
+add-child upperbody t-upperbody-to-human
+
+group g-head g-head add-lights nolights finish-lights
+add-child g-head upperbody
+
+translate t-neck-to-head t-neck-to-head 0 -7 0 add-lights nolights finish-lights
+add-child t-neck-to-head g-head
+
+group g-neck g-neck add-lights nolights finish-lights
+add-child g-neck t-neck-to-head
+
+scale s-neck s-neck 1 5 1 add-lights nolights finish-lights
+add-child s-neck g-neck
+
+leaf neck neck instanceof cylinder add-lights nolights finish-lights
+add-child neck s-neck
+assign-material neck neck-material
+
+scale s-head s-head 3 5 3 add-lights nolights finish-lights
+add-child s-head g-head
+
+leaf head head instanceof sphere add-lights nolights finish-lights
+add-child head s-head
+assign-material head head-material
+
+
+
+
+
+
